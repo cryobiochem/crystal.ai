@@ -18,14 +18,15 @@ data_dir = 'datasets\\crystal_microscopy'
 save_dir = 'ML\\Test\\gen_data'
 model_dir = 'ML\\Test\\saved_models'
 log_dir = 'ML\\Test\\logs\\fit'
+log_dir = 'ML\\Test\\history'
 img_shape = (64,64,3)
-epochs = 100
-steps_per_epoch = 512
-validation_steps = 64
+epochs = 1
+steps_per_epoch = 5
+validation_steps = 4
 
 import model_design
 
-model, train_generator, validation_generator = model_design.designer(
+model, train_generator, validation_generator, model_summary = model_design.designer(
     img_shape=img_shape,
     epochs=epochs,
     steps_per_epoch=steps_per_epoch,
@@ -58,3 +59,17 @@ sns.heatmap(cm,annot=True,cmap='viridis')
 
 
 #model.save(model_dir+'/model.h5')
+
+
+#Other stuff
+import time
+ts = time.time()
+import datetime
+st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d_%H%M%S')
+import os
+history_folder = 'ML\\Test\\history\\'+st
+os.mkdir(history_folder)
+
+file = open(history_folder+'\\model_summary.txt','w')
+file.write(model_summary)
+file.close()

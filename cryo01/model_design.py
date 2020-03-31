@@ -4,6 +4,7 @@ from tensorflow.keras.callbacks import EarlyStopping,TensorBoard
 from tensorflow.keras import regularizers, initializers
 from tensorflow.keras.optimizers import Adam, Adadelta, Adagrad
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+import inspect
 
 def designer(img_shape,epochs,steps_per_epoch,validation_steps,log_dir,data_dir):
 # Model Design
@@ -120,5 +121,7 @@ def designer(img_shape,epochs,steps_per_epoch,validation_steps,log_dir,data_dir)
         #callbacks=[early_stop,board]
         callbacks=[early_stop]
         )
+    
+    model_summary = inspect.getsource(designer)
 
-    return model, train_generator, validation_generator
+    return model, train_generator, validation_generator, model_summary
