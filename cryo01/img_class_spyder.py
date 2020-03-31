@@ -70,6 +70,9 @@ import os
 history_folder = 'ML\\Test\\history\\'+st
 os.mkdir(history_folder)
 
+# Model summary text file
 file = open(history_folder+'\\model_summary.txt','w')
 file.write(model_summary)
 file.close()
+
+metrics.to_csv(history_folder+'\\metrics.csv')
