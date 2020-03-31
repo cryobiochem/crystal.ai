@@ -6,7 +6,7 @@ from tensorflow.keras.optimizers import Adam, Adadelta, Adagrad
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 def designer(img_shape,epochs,steps_per_epoch,validation_steps,log_dir,data_dir):
-    # Model Design
+# Model Design
     model = Sequential()
     
     model.add(Conv2D(
@@ -53,13 +53,17 @@ def designer(img_shape,epochs,steps_per_epoch,validation_steps,log_dir,data_dir)
     
     
     
-    model.compile(loss='categorical_crossentropy',
-                  optimizer=Adagrad(learning_rate=0.01),
-                  metrics=['accuracy'])
+    model.compile(
+        loss='categorical_crossentropy',
+        optimizer=Adagrad(learning_rate=0.01),
+        metrics=['accuracy'])
     
     model.summary()
     
-    early_stop = EarlyStopping(monitor='val_loss',restore_best_weights=False,patience=2)
+    early_stop = EarlyStopping(
+        monitor='val_loss',
+        restore_best_weights=False,
+        patience=2)
     
     board = TensorBoard(
         log_dir=log_dir,
@@ -71,7 +75,7 @@ def designer(img_shape,epochs,steps_per_epoch,validation_steps,log_dir,data_dir)
         embeddings_freq=1)
     
     
-    #Data Augmentation/Generator
+#Data Augmentation/Generator
     train_datagen  = ImageDataGenerator(
         rotation_range=10,
         width_shift_range=0.1,
@@ -85,27 +89,28 @@ def designer(img_shape,epochs,steps_per_epoch,validation_steps,log_dir,data_dir)
         validation_split=0.18)
     
     
-    train_generator  = train_datagen.flow_from_directory(data_dir
-                                                  ,target_size=img_shape[:2]
-                                                  ,color_mode='rgb'
-                                                  ,batch_size=32
-                                                  ,class_mode='categorical'
-                                                  ,subset='training'
-                                                  ,shuffle=True
-                                                  #,save_to_dir=save_dir+'/train'
-                                                  )
+    train_generator  = train_datagen.flow_from_directory(
+        data_dir
+        ,target_size=img_shape[:2]
+        ,color_mode='rgb'
+        ,batch_size=32
+        ,class_mode='categorical'
+        ,subset='training'
+        ,shuffle=True
+        #,save_to_dir=save_dir+'/train'
+        )
+  
     
-    
-    validation_generator  = train_datagen.flow_from_directory(data_dir
-                                                  ,target_size=img_shape[:2]
-                                                  ,color_mode='rgb'
-                                                  ,class_mode='categorical'
-                                                  ,subset='validation'
-                                                  #,save_to_dir=save_dir+'/test'
-                                                   )
-    
-    
-    
+    validation_generator  = train_datagen.flow_from_directory(
+        data_dir
+        ,target_size=img_shape[:2]
+        ,color_mode='rgb'
+        ,class_mode='categorical'
+        ,subset='validation'
+        #,save_to_dir=save_dir+'/test'
+        )
+       
+#Model Fitting    
     model.fit_generator(
         train_generator,
         steps_per_epoch=steps_per_epoch,
