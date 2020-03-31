@@ -1,3 +1,7 @@
+import time
+import datetime
+import os
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -13,6 +17,7 @@ from sklearn.metrics import classification_report,confusion_matrix
 from tensorflow.keras.utils import to_categorical
 
 
+
 # Variables
 data_dir = 'datasets\\crystal_microscopy'
 save_dir = 'ML\\Test\\gen_data'
@@ -20,13 +25,16 @@ model_dir = 'ML\\Test\\saved_models'
 log_dir = 'ML\\Test\\logs\\fit'
 log_dir = 'ML\\Test\\history'
 img_shape = (64,64,3)
-epochs = 1
-steps_per_epoch = 5
-validation_steps = 4
+epochs = int(input('Epochs: '))
+steps_per_epoch = int(input('Steps per epoch: '))
+validation_steps = int(input('Validation Steps: '))
 
-import model_design
+import importlib
 
-model, train_generator, validation_generator, model_summary = model_design.designer(
+arch = 'architecture01'
+arch_import = importlib.import_module(arch)
+
+model, train_generator, validation_generator, model_summary = arch_import.designer(
     img_shape=img_shape,
     epochs=epochs,
     steps_per_epoch=steps_per_epoch,
@@ -62,11 +70,11 @@ sns.heatmap(cm,annot=True,cmap='viridis')
 
 
 #Other stuff
-import time
+
 ts = time.time()
-import datetime
+
 st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d_%H%M%S')
-import os
+
 history_folder = 'ML\\Test\\history\\'+st
 os.mkdir(history_folder)
 
