@@ -118,14 +118,14 @@ model.add(Activation("relu"))
 model.add(MaxPooling2D(pool_size=(2, 2),strides=(2,2)))
 
 model.add(Conv2D(
-    filters=12, 
+    filters=24, 
     kernel_size=(3,3),
     input_shape=img_shape
     ))
 model.add(Activation("relu"))
 
 model.add(Conv2D(
-    filters=12, 
+    filters=24, 
     kernel_size=(3,3),
    # input_shape=img_shape
     ))
@@ -148,7 +148,7 @@ model.compile(
 model.summary()
 
 early_stop = EarlyStopping(monitor='val_loss',patience=8,restore_best_weights=True)
-reduceLR = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=2, verbose=1, mode='min', min_delta=0.0001, cooldown=0, min_lr=0)
+reduceLR = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=2, verbose=1, mode='min', min_delta=0.0001, cooldown=0, min_lr=0)
 
 #####################################################
 
@@ -199,11 +199,15 @@ cm2 = confusion_matrix(
 plt.figure(figsize=(10,6))
 train_eval = sns.heatmap(cm2,annot=True,cmap='viridis')
 
-# serialize model to JSON
-model_json = model.to_json()
-with open("model2.json", "w") as json_file:
-    json_file.write(model_json)
-# serialize weights to HDF5
-model.save_weights("model2.h5")
-print("Saved model to disk")
+model.save('GPU_image_class_model.h5')
 
+import joblib
+joblib.dump(dic,'Label_dic.pkl')
+joblib.dump(metrics,'metrics.pkl')
+
+
+# import matplotlib.pyplot as plt
+# for i in range(X_test.shape[0]):
+#     print(i)
+#     plt.imshow(X_test[i])
+#     plt.show()
