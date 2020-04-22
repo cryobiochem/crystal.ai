@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- TODO: discover what metas are important to have in an index -->
+<!-- TODO: learn how to create html hierarchy -->
+
+<head>
+  <link rel="stylesheet" href="Projects\BrunoDavid\all-in-one-form\styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Sen|Teko|Kaushan+Script|Righteous|Shadows+Into+Light&display=swap" rel="stylesheet">
+
+  <meta class="UTF-8">
+
+  <meta name="description" content="Crystal AI">
+  <meta name="author" content="Bruno Guerreiro & David Peitinho">
+  <meta http-equiv="X-UA-Compatible" content="ie-edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crystal AI</title>
+  <link rel="shortcut icon" href="/interactivecryo.png" type="image/x-icon">
+  <link rel="icon" href="/interactivecryo.png" type="image/x-icon">
+</head>
+
+<body class="back">
+<script src="js/main.js"></script>
+
+<h1>Crystal AI</h1>
+<h2>Input your POM image and we guess which molecule creates those crystals</h2>
+<p></p>
+
+<form action="/upload.php" target="_blank" method="POST" enctype="multipart/form-data">
+ <label for="imageInput">Upload your image:</label><br>
+ <input type="file" id="imageInput" name="imageInput" onchange="form.submit()" /><br>
+</form>
+
+</body>
+
+</html>
