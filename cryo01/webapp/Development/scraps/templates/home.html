@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Cryo01</title>
+	</head>
+	<body>
+		<h1>Image Submission Form</h1>
+
+		<form method = "POST">
+			{{form.hidden_tag()}}
+			{{form.image_path.label}}  {{form.image_path}}
+			<br>
+			{{form.submit()}}
+		</form>
+
+	</body>
+</html>
