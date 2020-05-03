@@ -1,0 +1,22 @@
+{% extends "model_selection.html" %}
+
+{% block content%}
+
+
+
+<form class="" action="{{url_for('testing_prediction')}}" method="POST" enctype="multipart/form-data">
+  {{ form.hidden_tag() }}
+  {{ form.test_string.label}} {{ form.test_string()}}
+  {{form.test_radio}}
+  {{form.test_image}}
+  {{ form.submit()}}
+</form>
+
+<p>string = {{form.test_string.data}}
+<p>radio = {{form.test_radio.data}}
+<p>image = {{filename}}
+<p> imagepath ={{filepath}}
+<img src="P1010035_edit_rot3.JPG" alt="">
+
+
+{% endblock%}
