@@ -1,20 +1,21 @@
 {% extends "projects/cryo01/cryo01.html" %}
 {% block content%}
 
-<!-- Image input Panel -->
+<!-- Model Selection Panel -->
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-      <h1 class="display-4">Upload your image file.</h1>
-      <p class="lead">Browse your file on your local computer. Supported file extentions are: PNG, JPEG and JPG.</p>
-      <form method="POST" enctype="multipart/form-data">
-        {{form.hidden_tag()}}
-        {{form.model_radio.label}} {{form.model_radio}}
-        {{form.image}}
-        {{form.submit()}}
-      </form>
+    <h1 class="display-4">Prediction: {{prev}}</h1>
+    <p class="lead">Outputs below.</p>
+
+    Selected Model : {{ session['model_directory'] }}
+    <br>
+    Filename : {{ session['image'] }}
+    <br>
+    <img src="static/images/{{session['image']}}" alt="" width="45%">
+    <br>
+    <p>({{full_prediction}})</p>
 
   </div>
 </div>
-
 
 {% endblock%}

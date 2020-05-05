@@ -12,14 +12,10 @@ from wtforms import StringField, SubmitField, FileField, RadioField
 from wtforms.validators import DataRequired
 from flask_wtf.file import FileAllowed
 
-#import numpy as np
-#from tensorflow.keras.preprocessing import image as LoadImage
-#from tensorflow.keras.models import load_model
-#from flask_wtf import FlaskForm
-#from wtforms import StringField, SubmitField, FileField, RadioField
-#from werkzeug import secure_filename
-#from flask_wtf.file import FileAllowed
-#from wtforms.validators import DataRequired
+import numpy as np
+from tensorflow.keras.preprocessing import image as LoadImage
+from tensorflow.keras.models import load_model
+from werkzeug import secure_filename
 
 
 app = Flask(__name__)
@@ -145,7 +141,7 @@ def cryo01():
 
     return render_template("projects/cryo01/cryo01.html")
 
-@app.route('/cryo01/selection')
+@app.route('/cryo01/selection',methods=['GET','POST'])
 def cryo01_selection():
 
     from cryo01_form import InfoForm
@@ -157,13 +153,43 @@ def cryo01_selection():
         session['image'] = filename
         session['model_directory'] = form.model_radio.data
 
-        return redirect(url_for('projects/cryo01/cryo01_prediction.html'))
+        return redirect(url_for('cryo01_prediction'))
 
     return render_template("projects/cryo01/cryo01_selection.html",form=form)
 
-#@app.route('/cryo01/prediction')
-#def cryo01_prediction():
+@app.route('/cryo01/prediction')
+def cryo01_prediction():
 
+    selected_model_dir = session.get('model_directory',None)
+    image_file_name = session.get('image',None)
+    image = LoadImage.load_img('static/images/'+image_file_name,target_size=(512,512))
+    image = np.array(image)
+    image = image[np.newaxis,:]
+    image = np.divide(np.sum(image,axis=3),255*3)
+    image = image.reshape(1,512,512,1)
+
+    model_path = os.listdir('static\project_data\CRYO01\model\'+str(selected_model_dir))
+    for model_file in model_path:
+        if model_file[-2:] == 'h5':
+            model = load_model('model/'+selected_model_dir+'/'+model_file)
+
+        elif model_file == 'Label_dic.pkl':
+            labels = joblib.load('model/'+selected_model_dir+'/'+model_file)
+
+        else:
+            break
+
+    ## image prediction ##
+    prediction = model.predict(image)
+
+    full_prediction = ''
+
+    for i in range(len(labels)):
+        full_prediction += labels[i]+': '+str(round(100*prediction[0][i],2))+'%  '
+
+    prev = labels[np.argmax(prediction)]
+
+    return render_template("projects/cryo01/cryo01_prediction.html",full_prediction=full_prediction,prev=prev)
 
 
 if __name__ == '__main__':
