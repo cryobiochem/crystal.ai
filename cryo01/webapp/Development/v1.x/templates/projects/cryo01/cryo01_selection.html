@@ -1,0 +1,20 @@
+{% extends "projects/cryo01/cryo01.html" %}
+{% block content%}
+
+<!-- Image input Panel -->
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+      <h1 class="display-4">Upload your image file.</h1>
+      <p class="lead">Browse your file on your local computer. Supported file extentions are: PNG, JPEG and JPG.</p>
+      <form method="POST" enctype="multipart/form-data">
+        {{form.hidden_tag()}}
+        {{form.model_radio.label}} {{form.model_radio}}
+        {{form.image}}
+        {{form.submit()}}
+      </form>
+
+  </div>
+</div>
+
+
+{% endblock%}

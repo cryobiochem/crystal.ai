@@ -19,7 +19,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="{{url_for('index')}}">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link " href="{{url_for('index')}}">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">About <span class="sr-only">(current)</span></a>
@@ -28,7 +28,7 @@
             <a class="nav-link" href="#">News</a>
           </li>
 
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Profile
             </a>
@@ -45,7 +45,6 @@
               {% endif %}
             </div>
           </li>
-
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Projects
@@ -61,10 +60,46 @@
 
 
     </nav>
-    {% block content%}
+{% block content%}
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+          <h1 class="display-4">Signup Form.</h1>
+          <p class="lead">Please fill up the signup form below.</p>
+          <form method="POST" enctype="multipart/form-data">
+            {{form.hidden_tag()}}
+            <br>
+            {{form.username.label}}
+            <br>
+            {{form.username}}
+            <br>
+            {{form.email.label}}
+            <br>
+            {{form.email}}
+            {% if 'email' in form.errors.keys() %}
+              <span style="color: red">{{form.errors['email'][0]}}</span>
+            {% endif %}
+            <br>
+            {{form.password.label}}
+            <br>
+            {{form.password}}
+            {% if 'password' in form.errors.keys() %}
+              <span style="color: red">{{form.errors['password'][0]}}</span>
+            {% endif %}
+            <br>
+            {{form.password_confirm.label}}
+            <br>
+            {{form.password_confirm}}
+            <br>
+            <br>
+            {{form.submit()}}
+          </form>
+          <br>
+          <span style='color: red'>{{session['signup_status']}}</span>
+        </div>
+      </div>
 
-    <h1>Welcome {{ session['username'] }}</h1>
 
-    {% endblock %}
-  </body>
+{% endblock %}
+
+</body>
 </html>
