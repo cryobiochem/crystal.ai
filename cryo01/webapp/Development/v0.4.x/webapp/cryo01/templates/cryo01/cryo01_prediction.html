@@ -1,0 +1,24 @@
+{% extends "cryo01.html" %}
+{% block content%}
+
+<!-- Model Selection Panel -->
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Prediction: {{prev}}</h1>
+    <p class="lead">Outputs below.</p>
+
+    Selected Model : {{ session['model_directory'] }}
+    <br>
+    Filename : {{ session['image'] }}
+    <br>
+
+    <br>
+    <p>({{full_prediction}})</p>
+
+
+
+
+  </div>
+</div>
+
+{% endblock%}
