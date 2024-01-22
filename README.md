@@ -10,7 +10,7 @@ Computer vision algorithm able to detect and classify crystals generated in the 
    - The `borderline2.py` module is used for image processing, generating new features for the CNN model.
 
 3. **CNN Model Building and Training:**
-   - The `image_classification.py` script builds, trains, and evaluates the CNN model for crystal image classification.
+   - The `image_classification.py` script builds, trains, and evaluates the CNN model for crystal image classification using TensorFlow Keras.
    - Model performance is assessed through classification reports and confusion matrices, providing insights into accuracy.
 
 4. **Flask Web Interface for Model Prediction:**
