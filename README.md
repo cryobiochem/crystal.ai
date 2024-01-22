@@ -1,4 +1,4 @@
-# crystal.ai
+# 🧊🖥️ crystal.ai
 Computer vision algorithm able to detect and classify crystals generated in the presence of certain molecules. The application is based on the PhD work of Bruno Guerreiro, as published [here](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=nbyAZasAAAAJ&citation_for_view=nbyAZasAAAAJ:u5HHmVD_uO8C).
 
 ## General Architecture
